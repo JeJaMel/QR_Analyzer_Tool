@@ -87,18 +87,13 @@ def main():
                 else:
                     st.error(f"Validation: {message}")
 
-                if st.button("Save and Download Base64 Text File"):
-                    base64_data = base64.b64encode(decoded_data.encode('utf-8')).decode('utf-8')
-                    with open("decoded_qr.txt", "w") as text_file:
-                        text_file.write(base64_data)
-                    st.success("Decoded data saved as base64-encoded text file: decoded_qr.txt")
-                    with open("decoded_qr.txt", "rb") as file:
-                        btn = st.download_button(
-                            label="Download Base64 Text File",
-                            data=file,
-                            file_name="decoded_qr.txt",
-                            mime="text/plain"
-                        )
+                base64_data = base64.b64encode(decoded_data.encode('utf-8')).decode('utf-8')
+                st.download_button(
+                    label="Save and Download Base64 Text File",
+                    data=base64_data,
+                    file_name="decoded_qr.txt",
+                    mime="text/plain"
+                )
             else:
                 st.error("The image is not a valid QR code.")
         except Exception as e:
